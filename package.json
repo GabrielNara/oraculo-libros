@@ -1,0 +1,19 @@
+{
+  "name": "oraculo-libros",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "groq-sdk": "^0.37.0",
+    "node-notifier": "^10.0.1",
+    "pdf-parse": "^1.1.1"
+  }
+}
