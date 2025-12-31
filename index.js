@@ -150,9 +150,8 @@ function saveQuoteToDailyMd({ cita, reflexion, bookName }) {
     ensureDir(logsDir);
 
     const now = new Date();
-    const date = now.toISOString().slice(0, 10); // YYYY-MM-DD
+    const date = now.toLocaleDateString("sv-SE"); // YYYY-MM-DD
 
-    // Hora local (Argentina te va a quedar bien)
     const time = now.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
 
     const filePath = path.join(logsDir, `${date}.md`);
@@ -160,13 +159,13 @@ function saveQuoteToDailyMd({ cita, reflexion, bookName }) {
     const entry =
         `## 🕒 ${time} — 📚 ${bookName}
 
-> ${cita}
+   > ${cita}
 
-_${reflexion}_
+   _${reflexion}_
 
----
+   ---
 
-`;
+   `;
 
     fs.appendFileSync(filePath, entry, "utf8");
     return filePath;
