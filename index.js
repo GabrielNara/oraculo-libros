@@ -6,7 +6,6 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 
-
 import notifier from "node-notifier";
 import Groq from "groq-sdk";
 
@@ -25,6 +24,27 @@ function notify(title, message) {
         timeout: 10,
     });
 }
+
+const ACTIVE_START = process.env.ACTIVE_START || "08:00";
+const ACTIVE_END = process.env.ACTIVE_END || "12:00";
+
+function parseHHMM(hhmm) {
+    const [h, m] = hhmm.split(":").map(Number);
+    return h * 60 + m;
+}
+
+function isWithinActiveWindow(now = new Date()) {
+    const start = parseHHMM(ACTIVE_START);
+    const end = parseHHMM(ACTIVE_END);
+    const current = now.getHours() * 60 + now.getMinutes();
+
+    // Normal (08:00–12:00)
+    if (start <= end) return current >= start && current <= end;
+
+    // Cruza medianoche (ej. 22:00–06:00)
+    return current >= start || current <= end;
+}
+
 
 
 function listPdfs(dir) {
@@ -174,6 +194,10 @@ function saveQuoteToDailyMd({ cita, reflexion, bookName }) {
 
 async function runOnce() {
     try {
+        if (!isWithinActiveWindow()) {
+            console.log("🕒 Fuera de ventana horaria. Skipping...");
+            return;
+        }
         const pdfs = listPdfs(BOOKS_DIR);
         if (!pdfs.length) {
             notify("Oráculo", `No encontré PDFs en: ${BOOKS_DIR}`);

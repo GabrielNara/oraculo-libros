@@ -1,0 +1,5 @@
+# Ejemplo de archivo .bat para iniciar el oráculo
+
+@echo off
+cd /d "C:\Users\User-PC\Desktop\oraculo-libros"
+node index.js >> runtime.log 2>&1
