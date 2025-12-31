@@ -24,6 +24,9 @@ Ideal para:
 - 🪟 Notificaciones nativas de Windows
 - 📝 Registro diario en Markdown (`logs/YYYY-MM-DD.md`)
 - ⏱ Intervalo configurable
+- 🕒 Ventana horaria configurable
+- 🚀 Arranque automático al iniciar sesión en Windows
+- 📜 Log de ejecución persistente (`runtime.log`)
 
 ---
 
